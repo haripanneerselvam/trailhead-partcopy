@@ -1,0 +1,10 @@
+<apex:page >
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" />
+    <script>
+    $("#testLoad").load("https://brave-raccoon-75386-dev-ed--c.ap4.visual.force.com/apex/TestPage");
+    </script>
+<apex:form >
+<c:barcode39 codeValue="1234567890" /> 
+    <div id="testLoad"></div>
+    </apex:form>
+</apex:page>

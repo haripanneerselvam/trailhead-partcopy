@@ -1,0 +1,24 @@
+<apex:component controller="Code39Controller" access="global">  
+    <!-- global required to use in templates -->
+    
+    <apex:attribute assignTo="{!shouldCheckDigit}" type="boolean" name="checkDigit" default="false" description="True if should append additional check character." />
+    
+    <!-- codeValue must be supplied, but cannot be required because of global attribute -->
+    <apex:attribute assignTo="{!sourceCodeValue}" type="string" name="codeValue" description="The string to encode." />
+    
+    <!-- style sheet must be included to work properly -->
+    <apex:stylesheet value="{!URLFOR($Resource.barcodeCSS)}"/>
+    
+    <!-- leave some space on the side for scanners -->
+    <div style="display: inline-block; border: 1px solid black; min-width: 1in; padding: 0.25in 1in;" >
+        <div>
+            <apex:repeat value="{!barCodeBars}" var="bar">
+                <apex:outputText value="" styleClass="{!if(bar='1','blackbar','whitebar')}" />
+            </apex:repeat>
+        </div>
+        <div style="text-align: center">
+            <!-- we'll show the output text on the bottom, too -->
+            {!sourceCodeValue}
+        </div>
+    </div>
+</apex:component>
