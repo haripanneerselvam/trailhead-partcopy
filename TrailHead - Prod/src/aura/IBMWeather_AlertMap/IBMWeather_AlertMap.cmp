@@ -1,0 +1,26 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" controller="IBMWeather_Controller">
+    <ltng:require styles="{!$Resource.LeafletMap + '/leaflet.css'}"
+                  scripts="{!$Resource.LeafletMap + '/leaflet.js'}"
+                  afterScriptsLoaded="{!c.jsLoaded}" />
+    <aura:attribute name="map" type="Object"></aura:attribute>
+    <aura:attribute name="alerts" type="Object[]"></aura:attribute>
+    <aura:attribute name="spinnerWaiting" type="Boolean"></aura:attribute>
+    <aura:attribute name="countryOptions" type="Object[]"></aura:attribute>
+    <aura:attribute name="countrySelected" type="String" default="us"></aura:attribute>
+	<aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <div class="slds-card">
+        <div class="slds-p-left_medium slds-p-right_medium">
+            <lightning:select aura:id="country" name="country" label="Select a country for alerts" value="{!v.countrySelected}" onchange="{!c.getCountryAlerts}">
+                <aura:iteration items="{!v.countryOptions}" var="country">
+                <option value="{!country.value}" text="{!country.label}" selected="{!country.selected}"></option>
+                </aura:iteration>
+            </lightning:select>
+            <br></br>
+        </div>
+    </div>
+    <div class="map" id="map"></div>
+
+    <aura:if isTrue="{!v.spinnerWaiting}">
+        <lightning:spinner size="medium" alternativeText="Loading data..." />
+    </aura:if>
+</aura:component>
